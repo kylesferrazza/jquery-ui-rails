@@ -4,7 +4,7 @@
 //= require jquery-ui/widget
 
 /*!
- * jQuery UI Slider 1.12.1
+ * jQuery UI Slider 1.12.2-pre
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -40,7 +40,7 @@
 }( function( $ ) {
 
 return $.widget( "ui.slider", $.ui.mouse, {
-	version: "1.12.1",
+	version: "1.12.2-pre",
 	widgetEventPrefix: "slide",
 
 	options: {
@@ -137,7 +137,7 @@ return $.widget( "ui.slider", $.ui.mouse, {
 					options.values = [ this._valueMin(), this._valueMin() ];
 				} else if ( options.values.length && options.values.length !== 2 ) {
 					options.values = [ options.values[ 0 ], options.values[ 0 ] ];
-				} else if ( $.isArray( options.values ) ) {
+				} else if ( Array.isArray( options.values ) ) {
 					options.values = options.values.slice( 0 );
 				}
 			}
@@ -400,7 +400,7 @@ return $.widget( "ui.slider", $.ui.mouse, {
 		}
 
 		if ( arguments.length ) {
-			if ( $.isArray( arguments[ 0 ] ) ) {
+			if ( Array.isArray( arguments[ 0 ] ) ) {
 				vals = this.options.values;
 				newValues = arguments[ 0 ];
 				for ( i = 0; i < vals.length; i += 1 ) {
@@ -434,7 +434,7 @@ return $.widget( "ui.slider", $.ui.mouse, {
 			}
 		}
 
-		if ( $.isArray( this.options.values ) ) {
+		if ( Array.isArray( this.options.values ) ) {
 			valsLength = this.options.values.length;
 		}
 

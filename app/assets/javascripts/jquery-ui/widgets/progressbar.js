@@ -2,7 +2,7 @@
 //= require jquery-ui/widget
 
 /*!
- * jQuery UI Progressbar 1.12.1
+ * jQuery UI Progressbar 1.12.2-pre
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -38,7 +38,7 @@
 }( function( $ ) {
 
 return $.widget( "ui.progressbar", {
-	version: "1.12.1",
+	version: "1.12.2-pre",
 	options: {
 		classes: {
 			"ui-progressbar": "ui-corner-all",

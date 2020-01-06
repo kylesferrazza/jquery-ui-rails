@@ -5,7 +5,7 @@
 //= require jquery-ui/widget
 
 /*!
- * jQuery UI Resizable 1.12.1
+ * jQuery UI Resizable 1.12.2-pre
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -42,7 +42,7 @@
 }( function( $ ) {
 
 $.widget( "ui.resizable", $.ui.mouse, {
-	version: "1.12.1",
+	version: "1.12.2-pre",
 	widgetEventPrefix: "resize",
 	options: {
 		alsoResize: false,
@@ -193,15 +193,14 @@ $.widget( "ui.resizable", $.ui.mouse, {
 	_destroy: function() {
 
 		this._mouseDestroy();
+		this._addedHandles.remove();
 
 		var wrapper,
 			_destroy = function( exp ) {
 				$( exp )
 					.removeData( "resizable" )
 					.removeData( "ui-resizable" )
-					.off( ".resizable" )
-					.find( ".ui-resizable-handle" )
-						.remove();
+					.off( ".resizable" );
 			};
 
 		// TODO: Unwrap at same DOM position
@@ -232,6 +231,9 @@ $.widget( "ui.resizable", $.ui.mouse, {
 			this._removeHandles();
 			this._setupHandles();
 			break;
+		case "aspectRatio":
+			this._aspectRatio = !!value;
+			break;
 		default:
 			break;
 		}
@@ -253,6 +255,7 @@ $.widget( "ui.resizable", $.ui.mouse, {
 				} );
 
 		this._handles = $();
+		this._addedHandles = $();
 		if ( this.handles.constructor === String ) {
 
 			if ( this.handles === "all" ) {
@@ -264,7 +267,7 @@ $.widget( "ui.resizable", $.ui.mouse, {
 
 			for ( i = 0; i < n.length; i++ ) {
 
-				handle = $.trim( n[ i ] );
+				handle = String.prototype.trim.call( n[ i ] );
 				hname = "ui-resizable-" + handle;
 				axis = $( "<div>" );
 				this._addClass( axis, "ui-resizable-handle " + hname );
@@ -272,7 +275,10 @@ $.widget( "ui.resizable", $.ui.mouse, {
 				axis.css( { zIndex: o.zIndex } );
 
 				this.handles[ handle ] = ".ui-resizable-" + handle;
-				this.element.append( axis );
+				if ( !this.element.children( this.handles[ handle ] ).length ) {
+					this.element.append( axis );
+					this._addedHandles = this._addedHandles.add( axis );
+				}
 			}
 
 		}
@@ -338,7 +344,7 @@ $.widget( "ui.resizable", $.ui.mouse, {
 	},
 
 	_removeHandles: function() {
-		this._handles.remove();
+		this._addedHandles.remove();
 	},
 
 	_mouseCapture: function( event ) {

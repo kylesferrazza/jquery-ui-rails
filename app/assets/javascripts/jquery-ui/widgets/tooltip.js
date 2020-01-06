@@ -5,7 +5,7 @@
 //= require jquery-ui/widget
 
 /*!
- * jQuery UI Tooltip 1.12.1
+ * jQuery UI Tooltip 1.12.2-pre
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -42,7 +42,7 @@
 }( function( $ ) {
 
 $.widget( "ui.tooltip", {
-	version: "1.12.1",
+	version: "1.12.2-pre",
 	options: {
 		classes: {
 			"ui-tooltip": "ui-corner-all ui-widget-shadow"
@@ -78,7 +78,7 @@ $.widget( "ui.tooltip", {
 		describedby.push( id );
 		elem
 			.data( "ui-tooltip-id", id )
-			.attr( "aria-describedby", $.trim( describedby.join( " " ) ) );
+			.attr( "aria-describedby", String.prototype.trim.call( describedby.join( " " ) ) );
 	},
 
 	_removeDescribedBy: function( elem ) {
@@ -91,7 +91,7 @@ $.widget( "ui.tooltip", {
 		}
 
 		elem.removeData( "ui-tooltip-id" );
-		describedby = $.trim( describedby.join( " " ) );
+		describedby = String.prototype.trim.call( describedby.join( " " ) );
 		if ( describedby ) {
 			elem.attr( "aria-describedby", describedby );
 		} else {
@@ -458,6 +458,10 @@ $.widget( "ui.tooltip", {
 	},
 
 	_removeTooltip: function( tooltip ) {
+
+		// Clear the interval for delayed tracking tooltips
+		clearInterval( this.delayedShow );
+
 		tooltip.remove();
 		delete this.tooltips[ tooltip.attr( "id" ) ];
 	},

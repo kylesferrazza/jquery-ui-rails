@@ -2,7 +2,7 @@
 //= require jquery-ui/focusable
 
 /*!
- * jQuery UI Tabbable 1.12.1
+ * jQuery UI Tabbable 1.12.2-pre
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -27,7 +27,7 @@
 	}
 } ( function( $ ) {
 
-return $.extend( $.expr[ ":" ], {
+return $.extend( $.expr.pseudos, {
 	tabbable: function( element ) {
 		var tabIndex = $.attr( element, "tabindex" ),
 			hasTabindex = tabIndex != null;

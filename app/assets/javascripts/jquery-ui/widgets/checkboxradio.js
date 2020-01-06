@@ -4,7 +4,7 @@
 //= require jquery-ui/widget
 
 /*!
- * jQuery UI Checkboxradio 1.12.1
+ * jQuery UI Checkboxradio 1.12.2-pre
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -41,7 +41,7 @@
 }( function( $ ) {
 
 $.widget( "ui.checkboxradio", [ $.ui.formResetMixin, {
-	version: "1.12.1",
+	version: "1.12.2-pre",
 	options: {
 		disabled: null,
 		label: null,
@@ -120,9 +120,6 @@ $.widget( "ui.checkboxradio", [ $.ui.formResetMixin, {
 
 		if ( checked ) {
 			this._addClass( this.label, "ui-checkboxradio-checked", "ui-state-active" );
-			if ( this.icon ) {
-				this._addClass( this.icon, null, "ui-state-hover" );
-			}
 		}
 
 		this._on( {
@@ -169,7 +166,7 @@ $.widget( "ui.checkboxradio", [ $.ui.formResetMixin, {
 
 			// Not inside a form, check all inputs that also are not inside a form
 			group = $( nameSelector ).filter( function() {
-				return $( this ).form().length === 0;
+				return $( this )._form().length === 0;
 			} );
 		}
 

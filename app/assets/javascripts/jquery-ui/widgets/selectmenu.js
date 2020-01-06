@@ -9,7 +9,7 @@
 //= require jquery-ui/widget
 
 /*!
- * jQuery UI Selectmenu 1.12.1
+ * jQuery UI Selectmenu 1.12.2-pre
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -52,7 +52,7 @@
 }( function( $ ) {
 
 return $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
-	version: "1.12.1",
+	version: "1.12.2-pre",
 	defaultElement: "<select>",
 	options: {
 		appendTo: null,
@@ -666,6 +666,10 @@ return $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 		var that = this,
 			data = [];
 		options.each( function( index, item ) {
+			if ( item.hidden ) {
+				return;
+			}
+
 			data.push( that._parseOption( $( item ), index ) );
 		} );
 		this.items = data;
